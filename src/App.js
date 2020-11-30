@@ -67,6 +67,9 @@ function App() {
 
   const [editingFolders, setEditingFolders] = useState(false);
 
+  // This is just used as a checker so cancel button can work correctly
+  const [editingFolder, setEditingFolder] = useState(false);
+
   const addPersonHandler = () => {
     const fetchData = async () => {
       const response = await fetch("https://api.randomuser.me/");
@@ -103,6 +106,8 @@ function App() {
         addFolderStyle={classes.addFolderContainer}
         editingFolders={editingFolders}
         setEditingFolders={setEditingFolders}
+        editingFolder={editingFolder}
+        setEditingFolder={setEditingFolder}
       />
       <h1>Hello World</h1>
       <Button onClick={addPersonHandler} variant="contained">

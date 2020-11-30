@@ -24,6 +24,8 @@ export const Organizer = ({
   setFolderEditInput,
   editingFolders,
   setEditingFolders,
+  editingFolder,
+  setEditingFolder,
 }) => {
   const openFolderHandler = (e) => {
     setFolderAdderOpened(true);
@@ -50,6 +52,9 @@ export const Organizer = ({
     let currentFolder = folders.filter((folder) => folder.id === id);
     currentFolder[0].isEditing = true;
     setFolders([...folders]);
+
+    // Just used as a checker for cancelHandler
+    setEditingFolder(true);
   };
 
   const finalizeFolderNameHandler = (id) => {
@@ -65,11 +70,19 @@ export const Organizer = ({
     currentFolder[0].isEditing = false;
     setFolders([...folders]);
     setFolderEditInput("");
+
+    // Just used as a checker for cancelHandler
+    setEditingFolder(false);
   };
 
   const cancelHandler = () => {
+    if (folderEditInput === "" && editingFolders && editingFolder) {
+      alert("You need to give the folder a name before canceling");
+      return;
+    }
     setEditingFolders(false);
     setFolderAdderOpened(false);
+    setFolderName("");
   };
 
   return (

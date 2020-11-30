@@ -43,8 +43,18 @@ function App() {
   const [people, setPeople] = useState([]);
 
   const [folders, setFolders] = useState([
-    { id: "folder1", title: "Male", items: ["item1", "item2", "item3"] },
-    { id: "folder2", title: "Female", items: ["item1", "item2", "item3"] },
+    {
+      id: "folder1",
+      title: "Male",
+      items: ["item1", "item2", "item3"],
+      isEditing: false,
+    },
+    {
+      id: "folder2",
+      title: "Female",
+      items: ["item1", "item2", "item3"],
+      isEditing: false,
+    },
   ]);
 
   const [folderAdderOpened, setFolderAdderOpened] = useState(false);
@@ -52,6 +62,13 @@ function App() {
   const [organizerOpened, setOrganizerOpened] = useState(false);
 
   const [folderName, setFolderName] = useState("");
+
+  const [folderEditInput, setFolderEditInput] = useState("");
+
+  const [editingFolders, setEditingFolders] = useState(false);
+
+  // This is just used as a checker so cancel button can work correctly
+  const [editingFolder, setEditingFolder] = useState(false);
 
   const addPersonHandler = () => {
     const fetchData = async () => {
@@ -82,9 +99,15 @@ function App() {
         setFolderAdderOpened={setFolderAdderOpened}
         folderName={folderName}
         setFolderName={setFolderName}
+        folderEditInput={folderEditInput}
+        setFolderEditInput={setFolderEditInput}
         buttonStyle={classes.organizerButton}
         boxStyle={classes.organizerBox}
         addFolderStyle={classes.addFolderContainer}
+        editingFolders={editingFolders}
+        setEditingFolders={setEditingFolders}
+        editingFolder={editingFolder}
+        setEditingFolder={setEditingFolder}
       />
       <h1>Hello World</h1>
       <Button onClick={addPersonHandler} variant="contained">

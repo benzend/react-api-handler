@@ -18,6 +18,10 @@ export const Organizer = ({
   };
 
   const addFolderHandler = () => {
+    if (folderName === "") {
+      alert("You need to give your folder a name");
+      return;
+    }
     const foldersCopy = [...folders];
     const newFolder = {
       id: `folder${folders.length + 1}`,

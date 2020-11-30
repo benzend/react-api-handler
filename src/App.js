@@ -43,8 +43,18 @@ function App() {
   const [people, setPeople] = useState([]);
 
   const [folders, setFolders] = useState([
-    { id: "folder1", title: "Male", items: ["item1", "item2", "item3"] },
-    { id: "folder2", title: "Female", items: ["item1", "item2", "item3"] },
+    {
+      id: "folder1",
+      title: "Male",
+      items: ["item1", "item2", "item3"],
+      isEditing: false,
+    },
+    {
+      id: "folder2",
+      title: "Female",
+      items: ["item1", "item2", "item3"],
+      isEditing: false,
+    },
   ]);
 
   const [folderAdderOpened, setFolderAdderOpened] = useState(false);
@@ -52,6 +62,10 @@ function App() {
   const [organizerOpened, setOrganizerOpened] = useState(false);
 
   const [folderName, setFolderName] = useState("");
+
+  const [folderEditInput, setFolderEditInput] = useState("");
+
+  const [editingFolder, setEditingFolder] = useState(false);
 
   const addPersonHandler = () => {
     const fetchData = async () => {
@@ -82,6 +96,10 @@ function App() {
         setFolderAdderOpened={setFolderAdderOpened}
         folderName={folderName}
         setFolderName={setFolderName}
+        folderEditInput={folderEditInput}
+        setFolderEditInput={setFolderEditInput}
+        editingFolder={editingFolder}
+        setEditingFolder={setEditingFolder}
         buttonStyle={classes.organizerButton}
         boxStyle={classes.organizerBox}
         addFolderStyle={classes.addFolderContainer}

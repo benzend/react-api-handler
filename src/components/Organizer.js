@@ -1,4 +1,12 @@
-import { Box, Button, InputLabel, Input, FormControl } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  InputLabel,
+  Input,
+  FormControl,
+  IconButton,
+} from "@material-ui/core";
+import { Edit } from "@material-ui/icons";
 
 export const Organizer = ({
   opened,
@@ -12,6 +20,10 @@ export const Organizer = ({
   addFolderStyle,
   folderName,
   setFolderName,
+  folderEditInput,
+  setFolderEditInput,
+  editingFolder,
+  setEditingFolder,
 }) => {
   const openFolderHandler = (e) => {
     setFolderAdderOpened(true);
@@ -33,6 +45,20 @@ export const Organizer = ({
     setFolderAdderOpened(false);
     setFolderName("");
   };
+
+  const editFolderNameHandler = (id) => {
+    let currentFolder = folders.filter((folder) => folder.id === id);
+    currentFolder[0].isEditing = true;
+    setFolders([...folders]);
+  };
+
+  const finalizeFolderNameHandler = (id) => {
+    let currentFolder = folders.filter((folder) => folder.id === id);
+    currentFolder[0].title = folderEditInput;
+    currentFolder[0].isEditing = false;
+    setFolders([...folders]);
+  };
+
   return (
     <div>
       <Box className={`${boxStyle} ${opened ? "open" : ""}`}>
@@ -61,7 +87,33 @@ export const Organizer = ({
         ) : null}
         {folders.map((folder) => (
           <div key={folder.id}>
-            <h4>{folder.title}</h4>
+            <h4>
+              {folder.isEditing ? (
+                //
+                //
+                <div>
+                  <Input
+                    onChange={(e) => setFolderEditInput(e.target.value)}
+                    type="text"
+                    placeholder={folder.title}
+                  />
+                  <Button onClick={() => finalizeFolderNameHandler(folder.id)}>
+                    Set Name
+                  </Button>
+                </div>
+              ) : (
+                //
+                //
+                <div>
+                  {folder.title}
+                  <IconButton onClick={() => editFolderNameHandler(folder.id)}>
+                    <Edit />
+                  </IconButton>
+                </div>
+                //
+                //
+              )}{" "}
+            </h4>
             <ul>
               {folder.items.map((item, index) => (
                 <li key={`${folder.title}${item}${index}`}>{item}</li>

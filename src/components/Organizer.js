@@ -22,8 +22,8 @@ export const Organizer = ({
   setFolderName,
   folderEditInput,
   setFolderEditInput,
-  editingFolder,
-  setEditingFolder,
+  editingFolders,
+  setEditingFolders,
 }) => {
   const openFolderHandler = (e) => {
     setFolderAdderOpened(true);
@@ -53,20 +53,42 @@ export const Organizer = ({
   };
 
   const finalizeFolderNameHandler = (id) => {
+    if (folderEditInput === "") {
+      alert("You need to give the folder a name");
+      return;
+    } else if (folderEditInput.length > 20) {
+      alert("That name is too long, it needs to be under 20 characters");
+      return;
+    }
     let currentFolder = folders.filter((folder) => folder.id === id);
     currentFolder[0].title = folderEditInput;
     currentFolder[0].isEditing = false;
     setFolders([...folders]);
+    setFolderEditInput("");
+  };
+
+  const cancelHandler = () => {
+    setEditingFolders(false);
+    setFolderAdderOpened(false);
   };
 
   return (
     <div>
       <Box className={`${boxStyle} ${opened ? "open" : ""}`}>
         <h3>Your Folders</h3>
-        {folderAdderOpened ? (
-          ""
+        {editingFolders || folderAdderOpened ? (
+          <Button onClick={cancelHandler}>Cancel</Button>
         ) : (
-          <Button onClick={openFolderHandler}>Add Folder</Button>
+          <>
+            {folderAdderOpened ? (
+              ""
+            ) : (
+              <Button onClick={openFolderHandler}>Add Folder</Button>
+            )}
+            <Button onClick={() => setEditingFolders(!editingFolders)}>
+              Edit Folder
+            </Button>{" "}
+          </>
         )}
 
         {folderAdderOpened ? (
@@ -106,9 +128,15 @@ export const Organizer = ({
                 //
                 <div>
                   {folder.title}
-                  <IconButton onClick={() => editFolderNameHandler(folder.id)}>
-                    <Edit />
-                  </IconButton>
+                  {editingFolders ? (
+                    <IconButton
+                      onClick={() => editFolderNameHandler(folder.id)}
+                    >
+                      <Edit />
+                    </IconButton>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 //
                 //

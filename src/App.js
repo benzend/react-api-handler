@@ -65,7 +65,7 @@ function App() {
 
   const [folderEditInput, setFolderEditInput] = useState("");
 
-  const [editingFolder, setEditingFolder] = useState(false);
+  const [editingFolders, setEditingFolders] = useState(false);
 
   const addPersonHandler = () => {
     const fetchData = async () => {
@@ -98,11 +98,11 @@ function App() {
         setFolderName={setFolderName}
         folderEditInput={folderEditInput}
         setFolderEditInput={setFolderEditInput}
-        editingFolder={editingFolder}
-        setEditingFolder={setEditingFolder}
         buttonStyle={classes.organizerButton}
         boxStyle={classes.organizerBox}
         addFolderStyle={classes.addFolderContainer}
+        editingFolders={editingFolders}
+        setEditingFolders={setEditingFolders}
       />
       <h1>Hello World</h1>
       <Button onClick={addPersonHandler} variant="contained">

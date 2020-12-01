@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Organizer } from "./components/";
 import "./App.css";
 
@@ -86,6 +86,12 @@ function App() {
   // This is just used as a checker so cancelHandler can work correctly
   const [editingFolder, setEditingFolder] = useState(false);
 
+  useEffect(() => {
+    if (folders.length === 0) {
+      setEditingFolders(false);
+    }
+  }, [folders]);
+
   const addPersonHandler = () => {
     const fetchData = async () => {
       const response = await fetch("https://api.randomuser.me/");
@@ -117,12 +123,6 @@ function App() {
     updatePerson[0].editingFolder = !updatePerson[0].editingFolder;
     setPeople([...people]);
   };
-
-  if (folders.length === 0) {
-    setTimeout(() => {
-      setEditingFolders(false);
-    }, 30);
-  }
 
   const classes = useStyles();
 

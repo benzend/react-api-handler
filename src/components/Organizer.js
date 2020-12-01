@@ -110,7 +110,11 @@ export const Organizer = ({
             )}
             <Button
               variant="contained"
-              onClick={() => setEditingFolders(!editingFolders)}
+              onClick={() =>
+                setEditingFolders(
+                  folders.length !== 0 ? !editingFolders : false
+                )
+              }
             >
               Edit Folder
             </Button>{" "}

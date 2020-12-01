@@ -6,6 +6,7 @@ import { Box, Button, Container, Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   box: {
+    position: "relative",
     width: "300px",
     boxShadow: "3px 3px 7px gray",
     padding: 10,
@@ -36,6 +37,21 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#fff",
+  },
+  menuContainer: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: "100%",
+  },
+  menu: {
+    position: "relative",
+    top: "50px",
+    justifyContent: "center",
+  },
+  menuCancelBtn: {
+    position: "relative",
+    top: "60px",
   },
 });
 
@@ -77,6 +93,7 @@ function App() {
       const results = data.results[0];
       const allResults = [...people, results];
       console.log(people);
+      await allResults.forEach((result) => (result.editingFolder = false));
       setPeople(allResults);
     };
     fetchData();
@@ -86,7 +103,20 @@ function App() {
     setOrganizerOpened(!organizerOpened);
   };
 
-  const addToFolderHandler = () => {};
+  const addToFolderHandler = (person, folderName) => {
+    let folder = folders.filter((folder) => folder.title === folderName);
+    folder[0].items = [
+      ...folder[0].items,
+      person.name.first + " " + person.name.last,
+    ];
+    setFolders([...folders]);
+  };
+
+  const menuOpenedHandler = (person) => {
+    let updatePerson = people.filter((human) => human.id === person.id);
+    updatePerson[0].editingFolder = !updatePerson[0].editingFolder;
+    setPeople([...people]);
+  };
 
   if (folders.length === 0) {
     setTimeout(() => {
@@ -133,7 +163,39 @@ function App() {
                 <div>
                   <img src={person.picture.large} alt="a person" />
                 </div>
-                <Button onClick={addToFolderHandler}>Add to Folder</Button>
+                <Button onClick={() => menuOpenedHandler(person)}>
+                  Add to Folder
+                </Button>
+                {person.editingFolder ? (
+                  <div className={classes.menuContainer}>
+                    <Grid spacing={1} container className={classes.menu}>
+                      {folders.map((folder) => (
+                        <Grid item>
+                          <Button
+                            key={`${folder.title}Button`}
+                            onClick={() =>
+                              addToFolderHandler(person, folder.title)
+                            }
+                            variant="contained"
+                          >
+                            {`${folder.title} Folder`}
+                          </Button>
+                        </Grid>
+                      ))}
+                    </Grid>
+                    <div className={classes.menuCancelBtn}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => menuOpenedHandler(person)}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </Box>
             </Grid>
           ))}

@@ -95,15 +95,22 @@ export const Organizer = ({
       <Box className={`${boxStyle} ${opened ? "open" : ""}`}>
         <h3>Your Folders</h3>
         {editingFolders || folderAdderOpened ? (
-          <Button onClick={cancelHandler}>Cancel</Button>
+          <Button variant="contained" onClick={cancelHandler}>
+            Cancel
+          </Button>
         ) : (
           <>
             {folderAdderOpened ? (
               ""
             ) : (
-              <Button onClick={openFolderHandler}>Add Folder</Button>
+              <Button variant="contained" onClick={openFolderHandler}>
+                Add Folder
+              </Button>
             )}
-            <Button onClick={() => setEditingFolders(!editingFolders)}>
+            <Button
+              variant="contained"
+              onClick={() => setEditingFolders(!editingFolders)}
+            >
               Edit Folder
             </Button>{" "}
           </>

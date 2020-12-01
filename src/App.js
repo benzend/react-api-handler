@@ -29,8 +29,13 @@ const useStyles = makeStyles({
     right: "-20%",
     marginTop: "100px",
     padding: "20px",
-    width: "220px",
+    width: "250px",
     transition: "all .6s ease",
+    backgroundColor: "#ddd",
+    borderRadius: "30px 0 0 30px",
+    border: "solid 2px #eee",
+    boxShadow: "20px 25px 20px #0005",
+    zIndex: 20,
     "&.open": {
       right: 0,
     },
@@ -57,7 +62,17 @@ const useStyles = makeStyles({
     top: "60px",
   },
   folderItems: {
-    listStyle: "none",
+    textAlign: "left",
+  },
+  btn: {
+    margin: "3px",
+  },
+  addBtn: {
+    backgroundColor: "#3385ff",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#0047b3",
+    },
   },
 });
 
@@ -147,6 +162,8 @@ function App() {
         editingFolder={editingFolder}
         setEditingFolder={setEditingFolder}
         folderItemsStyle={classes.folderItems}
+        btnStyle={classes.btn}
+        addBtnStyle={classes.addBtn}
       />
       <h1>Hello World</h1>
       <Button onClick={addPersonHandler} variant="contained">

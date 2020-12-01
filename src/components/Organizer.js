@@ -27,6 +27,8 @@ export const Organizer = ({
   editingFolder,
   setEditingFolder,
   folderItemsStyle,
+  btnStyle,
+  addBtnStyle,
 }) => {
   const openFolderHandler = (e) => {
     setFolderAdderOpened(true);
@@ -105,7 +107,12 @@ export const Organizer = ({
       <Box className={`${boxStyle} ${opened ? "open" : ""}`}>
         <h3>Your Folders</h3>
         {editingFolders || folderAdderOpened ? (
-          <Button variant="contained" onClick={cancelHandler}>
+          <Button
+            className={btnStyle}
+            color="secondary"
+            variant="contained"
+            onClick={cancelHandler}
+          >
             Cancel
           </Button>
         ) : (
@@ -113,11 +120,18 @@ export const Organizer = ({
             {folderAdderOpened ? (
               ""
             ) : (
-              <Button variant="contained" onClick={openFolderHandler}>
+              <Button
+                className={btnStyle}
+                color="primary"
+                variant="contained"
+                onClick={openFolderHandler}
+              >
                 Add Folder
               </Button>
             )}
             <Button
+              className={btnStyle}
+              color="primary"
               variant="contained"
               onClick={() =>
                 setEditingFolders(
@@ -143,7 +157,13 @@ export const Organizer = ({
                 value={folderName}
               ></Input>
             </FormControl>
-            <Button onClick={addFolderHandler}>Add</Button>
+            <Button
+              className={addBtnStyle}
+              color="primary"
+              onClick={addFolderHandler}
+            >
+              Add
+            </Button>
           </div>
         ) : null}
         {folders.map((folder) => (
@@ -158,7 +178,10 @@ export const Organizer = ({
                     type="text"
                     placeholder={folder.title}
                   />
-                  <Button onClick={() => finalizeFolderNameHandler(folder.id)}>
+                  <Button
+                    className={btnStyle}
+                    onClick={() => finalizeFolderNameHandler(folder.id)}
+                  >
                     Set Name
                   </Button>
                 </div>

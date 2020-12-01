@@ -26,6 +26,7 @@ export const Organizer = ({
   setEditingFolders,
   editingFolder,
   setEditingFolder,
+  folderItemsStyle,
 }) => {
   const openFolderHandler = (e) => {
     setFolderAdderOpened(true);
@@ -174,7 +175,7 @@ export const Organizer = ({
                 //
               )}{" "}
             </h4>
-            <ul>
+            <ul className={folderItemsStyle}>
               {folder.items.map((item, index) => (
                 <li key={`${folder.title}${item}${index}`}>{item}</li>
               ))}

@@ -12,7 +12,9 @@ const useStyles = makeStyles({
     padding: 10,
     border: "1px solid #aaa",
   },
-  cont: {},
+  cont: {
+    marginTop: "20px",
+  },
   organizerButton: {
     position: "fixed",
     top: 0,
@@ -43,6 +45,7 @@ const useStyles = makeStyles({
     bottom: 0,
     left: 0,
     width: "100%",
+    zIndex: 10,
   },
   menu: {
     position: "relative",
@@ -53,6 +56,9 @@ const useStyles = makeStyles({
     position: "relative",
     top: "60px",
   },
+  folderItems: {
+    listStyle: "none",
+  },
 });
 
 function App() {
@@ -61,13 +67,7 @@ function App() {
   const [folders, setFolders] = useState([
     {
       id: "folder1",
-      title: "Male",
-      items: ["item1", "item2", "item3"],
-      isEditing: false,
-    },
-    {
-      id: "folder2",
-      title: "Female",
+      title: "Example folder",
       items: ["item1", "item2", "item3"],
       isEditing: false,
     },
@@ -146,6 +146,7 @@ function App() {
         setEditingFolders={setEditingFolders}
         editingFolder={editingFolder}
         setEditingFolder={setEditingFolder}
+        folderItemsStyle={classes.folderItems}
       />
       <h1>Hello World</h1>
       <Button onClick={addPersonHandler} variant="contained">
@@ -170,9 +171,8 @@ function App() {
                   <div className={classes.menuContainer}>
                     <Grid spacing={1} container className={classes.menu}>
                       {folders.map((folder) => (
-                        <Grid item>
+                        <Grid key={`${folder.title}Button`} item>
                           <Button
-                            key={`${folder.title}Button`}
                             onClick={() =>
                               addToFolderHandler(person, folder.title)
                             }

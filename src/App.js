@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { Organizer } from "./components/";
 import "./App.css";
 
-import { Box, Button, Container, Grid, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   box: {
@@ -13,15 +20,21 @@ const useStyles = makeStyles({
     border: "1px solid #aaa",
   },
   cont: {
-    marginTop: "20px",
+    marginTop: "40px",
   },
-  organizerButton: {
+  yourFoldersBtn: {
     position: "fixed",
     top: 0,
     right: 0,
     fontSize: "1.2rem",
     padding: ".1% .8%",
-    margin: ".8% 2%",
+    margin: "1.7% 4%",
+    boxShadow: "1px 1px 3px #ccc",
+    transition: "all .34s ease",
+    "&:hover": {
+      boxShadow: "5px 5px 10px #bbb",
+      transform: "scale(1.01)",
+    },
   },
   organizerBox: {
     position: "fixed",
@@ -30,6 +43,7 @@ const useStyles = makeStyles({
     marginTop: "100px",
     padding: "20px",
     width: "250px",
+    overflow: "hidden",
     transition: "all .6s ease",
     backgroundColor: "#ddd",
     borderRadius: "30px 0 0 30px",
@@ -43,7 +57,6 @@ const useStyles = makeStyles({
   addFolderContainer: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#fff",
   },
   menuContainer: {
     position: "absolute",
@@ -72,6 +85,21 @@ const useStyles = makeStyles({
     color: "#fff",
     "&:hover": {
       backgroundColor: "#0047b3",
+    },
+  },
+  addPersonBtn: {
+    marginTop: "30px",
+  },
+  foldersContainer: {
+    maxHeight: "70vh",
+    overflow: "scroll",
+    "&::-webkit-scrollbar": {
+      width: ".3rem",
+      height: "0",
+      backgroundColor: "#fff",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#4d4dff88",
     },
   },
 });
@@ -164,9 +192,18 @@ function App() {
         folderItemsStyle={classes.folderItems}
         btnStyle={classes.btn}
         addBtnStyle={classes.addBtn}
+        yourFoldersBtnStyle={classes.yourFoldersBtn}
+        foldersContainerStyle={classes.foldersContainer}
       />
-      <h1>Hello World</h1>
-      <Button onClick={addPersonHandler} variant="contained">
+      <Typography variant="h2" component="h1">
+        Person Organizer
+      </Typography>
+      <Button
+        color="primary"
+        className={classes.addPersonBtn}
+        onClick={addPersonHandler}
+        variant="contained"
+      >
         Add person
       </Button>
       <Container className={classes.cont}>

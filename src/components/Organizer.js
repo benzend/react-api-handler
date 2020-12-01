@@ -11,7 +11,6 @@ import { Edit, DeleteForever } from "@material-ui/icons";
 export const Organizer = ({
   opened,
   setOpen,
-  buttonStyle,
   boxStyle,
   folders,
   setFolders,
@@ -29,6 +28,8 @@ export const Organizer = ({
   folderItemsStyle,
   btnStyle,
   addBtnStyle,
+  yourFoldersBtnStyle,
+  foldersContainerStyle,
 }) => {
   const openFolderHandler = (e) => {
     setFolderAdderOpened(true);
@@ -105,7 +106,7 @@ export const Organizer = ({
   return (
     <div>
       <Box className={`${boxStyle} ${opened ? "open" : ""}`}>
-        <h3>Your Folders</h3>
+        <h3>Folders</h3>
         {editingFolders || folderAdderOpened ? (
           <Button
             className={btnStyle}
@@ -167,7 +168,7 @@ export const Organizer = ({
           </div>
         ) : null}
         {folders.map((folder) => (
-          <div key={folder.id}>
+          <div className={foldersContainerStyle} key={folder.id}>
             <h4>
               {folder.isEditing ? (
                 //
@@ -233,7 +234,7 @@ export const Organizer = ({
           </div>
         ))}
       </Box>
-      <Button onClick={setOpen} className={buttonStyle}>
+      <Button onClick={setOpen} className={yourFoldersBtnStyle}>
         Your Lists
       </Button>
     </div>

@@ -91,6 +91,15 @@ export const Organizer = ({
     setFolders([...updatedFolders]);
   };
 
+  const deleteItemHandler = (itemId) => {
+    const updated = folders.map((f) => {
+      const filtered = f.items.filter((item) => `${f.title}${item}` !== itemId);
+      f.items = [...filtered];
+      return f;
+    });
+    setFolders([...updated]);
+  };
+
   return (
     <div>
       <Box className={`${boxStyle} ${opened ? "open" : ""}`}>
@@ -181,7 +190,21 @@ export const Organizer = ({
             </h4>
             <ul className={folderItemsStyle}>
               {folder.items.map((item, index) => (
-                <li key={`${folder.title}${item}${index}`}>{item}</li>
+                <li
+                  id={`${folder.title}${item}`}
+                  key={`${folder.title}${item}${index}`}
+                >
+                  {item}{" "}
+                  {editingFolders ? (
+                    <IconButton
+                      onClick={() =>
+                        deleteItemHandler(`${folder.title}${item}`)
+                      }
+                    >
+                      <DeleteForever />
+                    </IconButton>
+                  ) : null}
+                </li>
               ))}
             </ul>
           </div>

@@ -6,7 +6,7 @@ import {
   FormControl,
   IconButton,
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { Edit, DeleteForever } from "@material-ui/icons";
 
 export const Organizer = ({
   opened,
@@ -85,6 +85,11 @@ export const Organizer = ({
     setFolderName("");
   };
 
+  const deleteFolderHandler = (id) => {
+    let updatedFolders = folders.filter((folder) => folder.id !== id);
+    setFolders([...updatedFolders]);
+  };
+
   return (
     <div>
       <Box className={`${boxStyle} ${opened ? "open" : ""}`}>
@@ -142,11 +147,18 @@ export const Organizer = ({
                 <div>
                   {folder.title}
                   {editingFolders ? (
-                    <IconButton
-                      onClick={() => editFolderNameHandler(folder.id)}
-                    >
-                      <Edit />
-                    </IconButton>
+                    <>
+                      <IconButton
+                        onClick={() => editFolderNameHandler(folder.id)}
+                      >
+                        <Edit />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => deleteFolderHandler(folder.id)}
+                      >
+                        <DeleteForever />
+                      </IconButton>
+                    </>
                   ) : (
                     ""
                   )}

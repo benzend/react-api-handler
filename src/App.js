@@ -67,7 +67,7 @@ function App() {
 
   const [editingFolders, setEditingFolders] = useState(false);
 
-  // This is just used as a checker so cancel button can work correctly
+  // This is just used as a checker so cancelHandler can work correctly
   const [editingFolder, setEditingFolder] = useState(false);
 
   const addPersonHandler = () => {
@@ -85,6 +85,14 @@ function App() {
   const organizerButtonHandler = () => {
     setOrganizerOpened(!organizerOpened);
   };
+
+  const addToFolderHandler = () => {};
+
+  if (folders.length === 0) {
+    setTimeout(() => {
+      setEditingFolders(false);
+    }, 30);
+  }
 
   const classes = useStyles();
 
@@ -115,21 +123,20 @@ function App() {
       </Button>
       <Container className={classes.cont}>
         <Grid spacing={1} justify="center" container>
-          {people
-            ? people.map((person) => (
-                <Grid key={person.login.md5} item>
-                  <Box className={classes.box}>
-                    <div>{`Name: ${person.name.title} ${person.name.first} ${person.name.last}`}</div>
-                    <div>{`Age: ${person.dob.age}`}</div>
-                    <div>{`Email: ${person.email}`}</div>
-                    <div>{`Phone Number: ${person.phone}`}</div>
-                    <div>
-                      <img src={person.picture.large} alt="a person" />
-                    </div>
-                  </Box>
-                </Grid>
-              ))
-            : "...loading"}
+          {people.map((person) => (
+            <Grid key={person.login.md5} item>
+              <Box className={classes.box}>
+                <div>{`Name: ${person.name.title} ${person.name.first} ${person.name.last}`}</div>
+                <div>{`Age: ${person.dob.age}`}</div>
+                <div>{`Email: ${person.email}`}</div>
+                <div>{`Phone Number: ${person.phone}`}</div>
+                <div>
+                  <img src={person.picture.large} alt="a person" />
+                </div>
+                <Button onClick={addToFolderHandler}>Add to Folder</Button>
+              </Box>
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </div>
